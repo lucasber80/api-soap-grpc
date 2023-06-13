@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package myapi;
+
+message Usuario {
+  string nome = 1;
+  int32 id = 2;
+  int32 idade = 3;
+  repeated int32 id_playlist = 4;
+}
+
+message Musica {
+  string nome = 1;
+  int32 id = 2;
+  string artista = 3;
+}
+
+message Playlist {
+  int32 id = 1;
+  string nome = 2;
+  int32 id_usuario = 3;
+  repeated int32 id_musica = 4;
+}
+
+message EmptyMessage {}
+
+service MyApi {
+  rpc CriarUsuario(Usuario) returns (Usuario) {}
+  rpc ListarUsuarios(google.protobuf.Empty) returns (stream Usuario) {}
+  rpc CriarMusica(Musica) returns (Musica) {}
+  rpc ListarMusicas(google.protobuf.Empty) returns (stream Musica) {}
+  rpc CriarPlaylist(Playlist) returns (Playlist) {}
+  rpc ListarPlaylists(google.protobuf.Empty) returns (stream Playlist) {}
+}
